@@ -1,0 +1,65 @@
+Make a single line IDE terminal based flashcard syntax checker
+(super easy GitHub project idea - at least it seems easy in 
+my head when thinking out how it should work).
+
+-System.out.println to give prompt in terminal.
+-Use scanner to take user input (answer choice).
+-format user input to take out white space so if user types 
+slightly differently from reference answer choice it'll still 
+accept as correct answer (as long as the only difference it
+in spaces between certain characters/symbols). 
+-If user inputs wrong answer 3+ times then they give failure
+text and the correct answer is shown. Given prompt to type 
+"retry", "quit", or "continue". Any other input will result
+in the wrong answer prompt above being shown again (+ `their input`
+"was not a valid option." + failure text). This also gives 
+them time to read the reference answer & understand it.
+    - "retry" : clears terminal and asks the question again.
+    - "quit" : ends the program + output text "you have prematurely
+    ended the study session".
+    - "continue" : puts the failed question at the back of the
+    questions queue for that deck. 
+
+- Question type start simple, only a couple queues (referred to
+as question "decks" in the program) of related question prompts
+where the answer choice is a single line of code | this 
+essentially functions as a syntax checker. Better than 
+flashcards because you have to more precisely enter in the 
+correct answer choice, compared to being able to roughly 
+guess the answer and give yourself leeway on whether you 
+got it right or not. 
+
+- What data structure should the questions and answers be 
+stored as?? : 
+    
+- ✅️What data structure should the decks holding the questions
+be?? : just off the top of my head, probably a queue so that
+questions can be moved to the back. 
+    - maybe a string array of questions & a string array of answers? |
+    NO due to not being able to rearrange order of questions. 
+    - maybe a hashmap with question as key and answer as value? |
+    NO due to not being able to rearrange order of questions since
+    its an unordered data structure (still).
+    - could use an ArrayList and its .set() method to swap failed questions
+    with the question at the end of the list | 
+    NO since it could work in theory but probably wouldn't be worth the 
+    time and effort to come up with and write out a function to do the 
+    rearranging, when there's probably a data structure that has a method
+    for that type of thing already (remember, this is a quickly made project).
+    - I'll probably use some type of Queue for easier moving of nodes from the 
+    front of the queue (current question) to the back (after all other questions
+    for spaced repetition).
+        - after reading through some Java documentation I've narrowed it down 
+        to 👉ArrayDeque. 
+
+- Limit scope (what ideas do you have that you should not
+focus on doing in this scale of a project?) :
+    - NO user input adding to decks (would require adding a 
+    database, and more time spent on the terminal prompt tree).
+    - NO saving/tracking answers or progress (would require
+    adding a database).
+    - MAYBE add random image generator as "sticker" reward for 
+    completion of a deck of questions | just as something fun 
+    to add after completion of base program (would require
+    extra image files added and a random object + extra
+    class for the randomImage() function to be created).
