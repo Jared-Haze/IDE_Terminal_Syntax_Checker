@@ -1,0 +1,6 @@
+Making this file to more easily remember what I was supposed to do next 
+when returning to a project. 
+
+Next Step:
+- determine what data structure to use for holding question(prompt) &
+answer(reference).
