@@ -1,7 +1,5 @@
 Making this file to more easily remember what I was supposed to do next 
 when returning to a project. 
 
-✅️Next Steps:
+Next Steps:
 - make deck chooser.
-- make function for asking the key prompt and checking user input. 
-- make the scanner object to accept user input for the questions asked. 
