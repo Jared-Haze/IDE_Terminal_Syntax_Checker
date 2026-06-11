@@ -3,3 +3,6 @@ when returning to a project.
 
 Next Steps:
 - make deck chooser.
+- make formatter for taking user input and...
+    - removing whitespace at end.
+    - removing whitespace & \n around parenthesis and curly braces.
