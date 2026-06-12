@@ -2,4 +2,9 @@ Making this file to more easily remember what I was supposed to do next
 when returning to a project. 
 
 Next Steps:
-- add "retry", "quit", & "continue" options on each question.
+- ??
+
+Later Scope:
+- update to allow multi-line inputs & remove/ignore white space + \n around
+parenthesis and curly braces.
+- add retry option to each question (for multi-line answers).

@@ -69,12 +69,24 @@ public class Main {
 
             if (input.equals(card.getValue())) {
                 System.out.println("correct!");
-                System.out.println("");
+                System.out.print("continue? (y/n): ");
+                String quitInput = scanner.nextLine().strip();
+                if (quitInput.equals("n")) {
+                    return;
+                } else {
+                    System.out.println("");
+                }
             } else {
                 System.out.println("wrong answer");
                 System.out.println("the correct answer was: " + card.getValue());
                 deck.putLast(card.getKey(), card.getValue());
-                System.out.println("");
+                System.out.print("continue? (y/n): ");
+                String quitInput = scanner.nextLine().strip();
+                if (quitInput.equals("n")) {
+                    return;
+                } else {
+                    System.out.println("");
+                }
             }
         }
         System.out.println("congrats, you completed this deck!!!");
@@ -87,18 +99,32 @@ public class Main {
 
             System.out.println(card.getKey());
             String input = scanner.nextLine().strip();
-
+            
             if (card.getValue().contains(input)) {
                 System.out.println("correct!");
-                System.out.println("");
+                System.out.print("continue? (y/n): ");
+                String quitInput = scanner.nextLine().strip();
+                if (quitInput.equals("n")) {
+                    return;
+                } else {
+                    System.out.println("");
+                }
             } else {
                 System.out.println("wrong answer");
                 System.out.println("the correct answers include: " + card.getValue());
                 deck.putLast(card.getKey(), card.getValue());
-                System.out.println("");
+                System.out.print("continue? (y/n): ");
+                String quitInput = scanner.nextLine().strip();
+                if (quitInput.equals("n")) {
+                    return;
+                } else {
+                    System.out.println("");
+                }
             }
+            
         }
         System.out.println("congrats, you completed this deck!!!");
+        
     }
 
     public static void testDeckFirst() {
