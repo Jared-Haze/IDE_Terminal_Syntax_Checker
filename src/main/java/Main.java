@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,6 +10,7 @@ public class Main {
         
 
         SequencedMap<String, String> testDeck = new LinkedHashMap<>();
+        SequencedMap<String, ArrayDeque<String>> mvpDeck = new LinkedHashMap<>();
         Scanner scanner = new Scanner(System.in);
 
         //greeting 
@@ -17,6 +19,7 @@ public class Main {
         System.out.println("1 = testDeck");
         System.out.println("2 = testDeck2");
         System.out.println("3 = testDeck3");
+        System.out.println("4 = MultiValuePrompts");
         System.out.print("(enter # only): ");
         int chosenDeck = scanner.nextInt();
         scanner.nextLine();
@@ -43,15 +46,78 @@ public class Main {
             testDeck.put(Prompts3.q4, Prompts3.a4);
             testDeck.put(Prompts3.q5, Prompts3.a5);
             deckCycle(testDeck, scanner);
+        } else if (chosenDeck ==4) {
+            MultiValuePrompts mvp = new MultiValuePrompts();
+            mvpDeck.put(MultiValuePrompts.q1, mvp.getAnswers1());
+            mvpDeck.put(MultiValuePrompts.q2, mvp.getAnswers2());
+            deckCycleMultiValue(mvpDeck, scanner);
         } else {
             System.out.println("wrong input");
         }
         scanner.close();
         System.out.println("Ending program");
 
-        
+    }
 
-        /* First attempt - leads to ConcurrentModificationException (you can't edit a collection while looping through it):
+    public static void deckCycle(SequencedMap<String, String> deck, Scanner scanner) {
+        //loop through deck : key-value
+        while (!deck.isEmpty()) {
+            Map.Entry<String, String> card = deck.pollFirstEntry();
+
+            System.out.println(card.getKey());
+            String input = scanner.nextLine().strip();
+
+            if (input.equals(card.getValue())) {
+                System.out.println("correct!");
+                System.out.println("");
+            } else {
+                System.out.println("wrong answer");
+                System.out.println("the correct answer was: " + card.getValue());
+                deck.putLast(card.getKey(), card.getValue());
+                System.out.println("");
+            }
+        }
+        System.out.println("congrats, you completed this deck!!!");
+    }
+
+    public static void deckCycleMultiValue(SequencedMap<String, ArrayDeque<String>> deck, Scanner scanner) {
+        //loop through deck : key-value(s)
+        while (!deck.isEmpty()) {
+            Map.Entry<String, ArrayDeque<String>> card = deck.pollFirstEntry();
+
+            System.out.println(card.getKey());
+            String input = scanner.nextLine().strip();
+
+            if (card.getValue().contains(input)) {
+                System.out.println("correct!");
+                System.out.println("");
+            } else {
+                System.out.println("wrong answer");
+                System.out.println("the correct answers include: " + card.getValue());
+                deck.putLast(card.getKey(), card.getValue());
+                System.out.println("");
+            }
+        }
+        System.out.println("congrats, you completed this deck!!!");
+    }
+
+    public static void testDeckFirst() {
+        SequencedMap<String, String> deck1 = new LinkedHashMap<>();
+
+        deck1.put(Prompts.q1, Prompts.a1);
+        deck1.put(Prompts.q2, Prompts.a2);
+        deck1.put(Prompts.q3, Prompts.a3);
+
+        System.out.println(deck1.entrySet());
+
+        Map.Entry<String, String> card = deck1.pollFirstEntry();
+        System.out.println(deck1.entrySet());
+
+        deck1.putLast(card.getKey(), card.getValue());
+        System.out.println(deck1.entrySet());
+    }
+
+/* First attempt - leads to ConcurrentModificationException (you can't edit a collection while looping through it):
         for (Map.Entry<String, String> entry : testDeck.entrySet()) {
             System.out.println(entry.getKey());
             String input = scanner.nextLine();
@@ -83,42 +149,5 @@ public class Main {
 
         System.out.println("end of test.");
         */
-    }
 
-    public static void deckCycle(SequencedMap<String, String> deck, Scanner scanner) {
-        //loop through deck
-        while (!deck.isEmpty()) {
-            Map.Entry<String, String> card = deck.pollFirstEntry();
-
-            System.out.println(card.getKey());
-            String input = scanner.nextLine().strip();
-
-            if (input.equals(card.getValue())) {
-                System.out.println("correct!");
-                System.out.println("");
-            } else {
-                System.out.println("wrong answer");
-                System.out.println("the correct answer was: " + card.getValue());
-                deck.putLast(card.getKey(), card.getValue());
-                System.out.println("");
-            }
-        }
-        System.out.println("congrats, you completed this deck!!!");
-    }
-
-    public static void testDeckFirst() {
-        SequencedMap<String, String> deck1 = new LinkedHashMap<>();
-
-        deck1.put(Prompts.q1, Prompts.a1);
-        deck1.put(Prompts.q2, Prompts.a2);
-        deck1.put(Prompts.q3, Prompts.a3);
-
-        System.out.println(deck1.entrySet());
-
-        Map.Entry<String, String> card = deck1.pollFirstEntry();
-        System.out.println(deck1.entrySet());
-
-        deck1.putLast(card.getKey(), card.getValue());
-        System.out.println(deck1.entrySet());
-    }
 }

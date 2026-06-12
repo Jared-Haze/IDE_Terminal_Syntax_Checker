@@ -2,5 +2,4 @@ Making this file to more easily remember what I was supposed to do next
 when returning to a project. 
 
 Next Steps:
-- make formatter for taking user input and...
-    - removing whitespace & \n around parenthesis and curly braces.
+- add "retry", "quit", & "continue" options on each question.
