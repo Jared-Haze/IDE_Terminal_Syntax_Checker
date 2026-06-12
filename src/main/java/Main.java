@@ -6,13 +6,69 @@ import java.util.SequencedMap;
 public class Main {
     public static void main(String[] args){
         
-        Scanner scanner = new Scanner(System.in);
+        
 
         SequencedMap<String, String> testDeck = new LinkedHashMap<>();
-        testDeck.put(Prompts.q1, Prompts.a1);
-        testDeck.put(Prompts.q2, Prompts.a2);
-        testDeck.put(Prompts.q3, Prompts.a3);
+        Scanner scanner = new Scanner(System.in);
 
+        //greeting 
+        System.out.println("Welcome to CLI syntax checker!");
+        System.out.println("Pls choose which deck you'd like to study: ");
+        System.out.println("1 = testDeck");
+        System.out.println("2 = testDeck2");
+        System.out.println("3 = testDeck3");
+        System.out.print("(enter # only): ");
+        int chosenDeck = scanner.nextInt();
+        scanner.nextLine();
+        //deck chooser
+        if (chosenDeck == 1) {
+            testDeck.put(Prompts.q1, Prompts.a1);
+            testDeck.put(Prompts.q2, Prompts.a2);
+            testDeck.put(Prompts.q3, Prompts.a3);
+            testDeck.put(Prompts.q4, Prompts.a4);
+            testDeck.put(Prompts.q5, Prompts.a5);
+            testDeck.put(Prompts.q6, Prompts.a6);
+            testDeck.put(Prompts.q7, Prompts.a7);
+            deckCycle(testDeck, scanner);
+        } else if (chosenDeck == 2) {
+            testDeck.put(Prompts2.q1, Prompts2.a1);
+            testDeck.put(Prompts2.q2, Prompts2.a2);
+            testDeck.put(Prompts2.q3, Prompts2.a3);
+            testDeck.put(Prompts2.q4, Prompts2.a4);
+            deckCycle(testDeck, scanner);
+        } else if (chosenDeck == 3) {
+            testDeck.put(Prompts3.q1, Prompts3.a1);
+            testDeck.put(Prompts3.q2, Prompts3.a2);
+            testDeck.put(Prompts3.q3, Prompts3.a3);
+            testDeck.put(Prompts3.q4, Prompts3.a4);
+            testDeck.put(Prompts3.q5, Prompts3.a5);
+            deckCycle(testDeck, scanner);
+        } else {
+            System.out.println("wrong input");
+        }
+        scanner.close();
+        System.out.println("Ending program");
+
+        
+
+        /* First attempt - leads to ConcurrentModificationException (you can't edit a collection while looping through it):
+        for (Map.Entry<String, String> entry : testDeck.entrySet()) {
+            System.out.println(entry.getKey());
+            String input = scanner.nextLine();
+            if (input.equals(entry.getValue())) {
+                System.out.println("correct!");
+            } else {
+                System.out.println("wrong answer");
+                System.out.println("the correct answer was: " + entry.getValue());
+                Map.Entry<String, String> failedPrompt = testDeck.pollFirstEntry();
+                testDeck.putLast(failedPrompt.getKey(), failedPrompt.getValue());
+            }
+        }
+        System.out.println("congrats, you completed this deck!");
+        */
+        
+
+        /* Origianl testing of answer checking, switched to using for-loop later...
         String deckKey1 = testDeck.sequencedKeySet().getFirst();
         String deckValue1 = testDeck.sequencedValues().getFirst();
 
@@ -26,6 +82,28 @@ public class Main {
         }
 
         System.out.println("end of test.");
+        */
+    }
+
+    public static void deckCycle(SequencedMap<String, String> deck, Scanner scanner) {
+        //loop through deck
+        while (!deck.isEmpty()) {
+            Map.Entry<String, String> card = deck.pollFirstEntry();
+
+            System.out.println(card.getKey());
+            String input = scanner.nextLine().strip();
+
+            if (input.equals(card.getValue())) {
+                System.out.println("correct!");
+                System.out.println("");
+            } else {
+                System.out.println("wrong answer");
+                System.out.println("the correct answer was: " + card.getValue());
+                deck.putLast(card.getKey(), card.getValue());
+                System.out.println("");
+            }
+        }
+        System.out.println("congrats, you completed this deck!!!");
     }
 
     public static void testDeckFirst() {
